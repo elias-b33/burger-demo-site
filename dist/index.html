@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#254b3e">
+  <meta name="description" content="Smashade burgare, krispiga pommes och riktigt gott häng. Välj din restaurang och beställ takeaway direkt hos Smashverket.">
+  <meta property="og:title" content="Smashverket — småskaligt, storslaget gott.">
+  <meta property="og:description" content="Burgare med attityd. Beställ takeaway och hitta ditt nya favorithak.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/hero-meal.jpg">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Smashverket — småskaligt, storslaget gott.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" as="image" href="assets/hero-meal.jpg">
+</head>
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehåll</a>
+  <div class="announcement" aria-label="Smashat på beställning. Hämta varmt. Ät gott.">
+    <div class="announcement-track" aria-hidden="true">
+      <span>SMASHAT PÅ BESTÄLLNING. HÄMTA VARMT. ÄT GOTT. <b>✦</b></span>
+      <span>SMASHAT PÅ BESTÄLLNING. HÄMTA VARMT. ÄT GOTT. <b>✦</b></span>
+      <span>SMASHAT PÅ BESTÄLLNING. HÄMTA VARMT. ÄT GOTT. <b>✦</b></span>
+      <span>SMASHAT PÅ BESTÄLLNING. HÄMTA VARMT. ÄT GOTT. <b>✦</b></span>
+    </div>
+  </div>
+  <header class="site-header">
+    <button class="menu-toggle" data-action="navigation" aria-label="Öppna navigering" aria-haspopup="dialog"><span class="hamburger"><i></i><i></i><i></i></span><span class="menu-label">MENY</span></button>
+    <a class="brand" href="#" aria-label="Smashverket startsida"><span class="wordmark" data-brand="wordmark">#smashverket</span><span class="brand-tagline" data-brand="tagline">BURGERS & GOOD TIMES</span></a>
+    <div class="header-actions"><button class="button button-lime header-order" data-action="order">BESTÄLL ONLINE <span aria-hidden="true">↗</span></button><button class="bag-button" data-action="cart" aria-label="Öppna varukorg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><span class="cart-count" hidden>0</span></button></div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <figure class="hero-photo hero-photo-left"><img src="assets/hero-meal.jpg" alt="Dubbel smashburgare, krispiga pommes och vaniljshake på ett grönt dinerbord" fetchpriority="high" width="960" height="1200"><figcaption>Kärlek vid första tuggan.</figcaption></figure>
+      <div class="hero-center">
+        <span class="hero-eyebrow">SMÅSKALIGA BURGARE. STORA KÄNSLOR.</span>
+        <div class="hero-title-wrap"><span class="hero-ghost" aria-hidden="true">SMASH</span><h1 id="hero-title">JUICY.</h1><span class="hero-spark" aria-hidden="true">✦</span></div>
+        <p class="handwritten hero-script">Småskaligt. Storslaget gott.</p>
+        <p class="hero-description">Krispiga kanter. Smält cheddar. Riktigt gott häng.<br>Din nästa favoritburgare börjar här.</p>
+        <a class="hero-explore" href="#meny">FÖLJ DIN MAGKÄNSLA <span aria-hidden="true">↓</span></a>
+      </div>
+      <figure class="hero-photo hero-photo-right"><img src="assets/hero-closeup.jpg" alt="Saftig smashburgare med gyllene brioche och rinnande cheddar i närbild" width="960" height="1200"><figcaption>Oh, så juicy.</figcaption></figure>
+      <div class="hero-bottom"><span>HANDSMASHAT MED KÄRLEK</span><span class="hero-bottom-star" aria-hidden="true">✦</span><span>TAKEAWAY DIREKT FRÅN OSS</span></div>
+    </section>
+
+    <div class="big-ticker" aria-label="Smashed fresh. Served loud."><div><span>SMASHED FRESH.</span><b aria-hidden="true">✳</b><span>SERVED LOUD.</span><b aria-hidden="true">✳</b><span aria-hidden="true">SMASHED FRESH.</span></div></div>
+
+    <section class="menu-section section-shell" id="meny" aria-labelledby="menu-title">
+      <div class="section-heading"><div><span class="eyebrow">GOTT PÅ RIKTIGT</span><h2 id="menu-title">DINA NYA<br>FAVORITER.</h2></div><div class="section-intro"><span class="handwritten">Kom hungrig.</span><p>Inga konstigheter. Bara riktigt bra burgare,<br>smashade när du beställer. Vad blir din favorit?</p></div></div>
+      <div class="menu-toolbar"><div class="category-tabs" id="home-categories" role="tablist" aria-label="Menykategorier"></div><label class="veg-toggle"><input type="checkbox" id="home-veg"><span class="leaf-icon" aria-hidden="true">✿</span> Bara veggo</label></div>
+      <div id="home-menu" class="food-grid" role="tabpanel" aria-labelledby="home-tab-burgers"></div>
+      <div class="menu-bottom"><p>Gör den till en meny. <strong>Pommes + läsk för 45 kr.</strong></p><button class="button button-green" data-action="order">HELA MENYN & BESTÄLL <span aria-hidden="true">↗</span></button></div>
+    </section>
+
+    <section class="story-section" id="om-oss" aria-labelledby="story-title">
+      <div class="story-photo-wrap"><figure class="story-photo"><img src="assets/hero-meal.jpg" alt="En burgarmeny med shake och pommes, gjord för gott sällskap" loading="lazy" width="960" height="1200"><figcaption class="handwritten">Good food. Good mood.</figcaption></figure><div class="round-stamp" aria-hidden="true"><span>SMASHAT</span><b>✳</b><span>MED KÄRLEK</span></div></div>
+      <div class="story-copy"><span class="eyebrow">DITT LOKALA BURGERHAK</span><h2 id="story-title">LITEN KEDJA.<br>STOR SMAK.</h2><p>Vi tror på enkla saker. Ett riktigt bra bröd, en het stekyta och ost som smälter precis rätt. Resten handlar om kärlek till burgare.</p><p>Smashverket är kvartershaket för en snabb lunch, ett långt häng eller något riktigt gott på vägen hem. Två ställen. Samma magkänsla.</p><a class="text-link" href="#restauranger">HITTA DITT SMASHVERKET <span aria-hidden="true">↗</span></a><span class="handwritten story-note">Vi ses vid stekbordet!</span></div>
+    </section>
+
+    <section class="takeaway-section section-shell" aria-labelledby="takeaway-title"><div class="takeaway-title"><span class="eyebrow">SKIPPA KÖN. BEHÅLL CRAVINGSEN.</span><h2 id="takeaway-title">BRA BURGARE.<br>PÅ DIN TID.</h2><span class="handwritten">Från stekbord till soffbord.</span></div><ol class="takeaway-steps"><li><span>01</span><div><h3>VÄLJ DITT HAK</h3><p>Hitta restaurangen närmast dig.</p></div></li><li><span>02</span><div><h3>BYGG DIN BESTÄLLNING</h3><p>Din burgare, dina tillval. Precis som du vill.</p></div></li><li><span>03</span><div><h3>HÄMTA. HUGG IN.</h3><p>Välj en tid. Vi fixar resten.</p></div></li></ol><button class="button button-green" data-action="order">BESTÄLL TAKEAWAY <span aria-hidden="true">↗</span></button></section>
+
+    <section class="locations-section section-shell" id="restauranger" aria-labelledby="locations-title"><div class="section-heading"><div><span class="eyebrow">TVÅ STÄLLEN. SAMMA KÄRLEK.</span><h2 id="locations-title">DITT NÄSTA<br>BURGERHÄNG.</h2></div><div class="section-intro"><span class="handwritten">Ses vi här?</span><p>Slå dig ner eller ta med dig något gott.<br>Du hittar oss mitt i kvarteret.</p></div></div><div class="locations-grid" id="locations-grid"></div></section>
+
+    <section class="delivery-strip"><div><span class="eyebrow">SOFFAN ÄR OCKSÅ ETT BRA BORD.</span><h2>VI KOMMER TILL DIG.</h2><p>Ta burgarkvällen hemma. Hemleverans via <span class="foodora-wordmark">foodora</span></p></div><button class="button button-cream" data-action="delivery">KOLLA HEMLEVERANS <span aria-hidden="true">↗</span></button></section>
+
+    <section class="faq-section section-shell" id="fragor" aria-labelledby="faq-title"><div><span class="eyebrow">BRA ATT VETA</span><h2 id="faq-title">NÅGOT DU<br>UNDRAR?</h2><span class="handwritten">Vi har svar.</span></div><div class="faq-list"><details><summary>Hur fungerar takeaway?</summary><p>Välj restaurang, lägg dina favoriter i varukorgen och välj en upphämtningstid. Hämta på restaurangen och uppge ditt ordernummer. Den här mallen körs i demoläge, så ingen riktig beställning skickas.</p></details><details><summary>Kan jag anpassa min burgare?</summary><p>Självklart. Tryck på en burgare för att lägga till extra ost, välja en meny eller plocka bort ingredienser. Du ser alltid det uppdaterade priset innan du lägger till den.</p></details><details><summary>Har ni vegetariska alternativ?</summary><p>Ja! Green Machine är vår vegetariska burgare. Använd filtret ”Bara veggo” för att hitta vegetariska burgare, sides och drycker. Vegetarisk betyder inte alltid vegansk.</p></details><details><summary>Var hittar jag information om allergener?</summary><p>Öppna en rätt för att se dess angivna allergener. Vid allergi, kontakta restaurangen innan du beställer. Vi kan inte garantera en miljö fri från spår av allergener. I den här restaurangmallen är innehållet exempeldata.</p></details><details><summary>Kan jag få maten hemlevererad?</summary><p>Välj ”Kolla hemleverans” och din restaurang för att se om Foodora finns tillgängligt. Du slutför då beställning och betalning hos Foodora. Takeaway på vår sida hämtar du själv.</p></details></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="footer-top"><a class="brand footer-brand" href="#"><span class="wordmark" data-brand="wordmark">#smashverket</span><span class="brand-tagline" data-brand="tagline">BURGERS & GOOD TIMES</span></a><p class="handwritten">Stay hungry. Stay juicy.</p><a class="text-link" data-brand="email" href="mailto:hej@smashverket.example">SÄG HEJ ↗</a></div><div class="footer-bottom"><span>© <span id="year">2026</span> <span data-brand="name">Smashverket</span></span><nav aria-label="Sidfot"><a href="#meny">Meny</a><a href="#restauranger">Restauranger</a><button data-action="privacy">Integritet</button></nav><span class="demo-disclosure">Restaurangmall · Namn, adresser och meny är exempel.</span></div></footer>
+
+  <nav class="bottom-dock" aria-label="Snabbnavigering"><a href="#meny">VÅR MENY</a><a href="#restauranger">HITTA OSS</a><button data-action="order">BESTÄLL NU <span aria-hidden="true">↗</span></button><button class="dock-cart" data-action="cart" hidden>VARUKORG <span class="dock-count">0</span></button></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="cart-announcement" aria-live="polite"></div>
+
+  <dialog id="nav-dialog" class="nav-dialog" aria-labelledby="nav-title"><button class="close-button" data-close="nav-dialog" aria-label="Stäng navigering">×</button><span class="eyebrow" id="nav-title">VAD ÄR DU SUGEN PÅ?</span><nav aria-label="Huvudnavigering"><a href="#meny">MENYN <span>01</span></a><a href="#om-oss">VÅR GREJ <span>02</span></a><a href="#restauranger">HITTA OSS <span>03</span></a><a href="#fragor">FRÅGOR & SVAR <span>04</span></a></nav><button class="button button-lime" data-action="order">BESTÄLL NÅGOT GOTT ↗</button><p class="handwritten">Din magkänsla har rätt.</p></dialog>
+  <dialog id="order-dialog" class="order-dialog" aria-labelledby="order-title"><div class="order-header"><div><span class="eyebrow" id="order-eyebrow">DIREKT FRÅN STEKBORDET</span><h2 id="order-title">BESTÄLL TAKEAWAY.</h2></div><button class="close-button" data-close="order-dialog" aria-label="Stäng beställning">×</button></div><div class="order-progress" aria-label="Beställningssteg" id="order-progress"></div><div id="order-content"></div></dialog>
+  <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-title"><button class="close-button product-close" data-close="product-dialog" aria-label="Stäng produkt">×</button><div id="product-content"></div></dialog>
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="info-title"><button class="close-button" data-close="info-dialog" aria-label="Stäng">×</button><div id="info-content"></div></dialog>
+  <noscript><div class="noscript">Aktivera JavaScript för att se hela menyn och prova beställningsflödet.</div></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

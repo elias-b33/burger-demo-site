@@ -1,0 +1,14 @@
+{
+  "name": "smashverket-restaurant-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Återanvändbar restaurangmall med meny, takeaway och Foodora-länkar.",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": { "node": "24.x" }
+}
