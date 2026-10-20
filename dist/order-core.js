@@ -1,10 +1,10 @@
 import { restaurant, menu, extras, meal } from './restaurant.config.js';
 
 export const money = value => new Intl.NumberFormat(restaurant.locale, { style: 'currency', currency: restaurant.currency, minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(value / 100);
-export const itemById = id => menu.find(item => item.id === id);
+export const itemById = (id, catalog = menu) => catalog.find(item => item.id === id);
 
-export function normalizeLine(raw) {
-  const item = itemById(raw?.itemId);
+export function normalizeLine(raw, catalog = menu, combo = meal) {
+  const item = itemById(raw?.itemId, catalog);
   if (!item) return null;
   const quantity = Number(raw.quantity);
   if (!Number.isInteger(quantity) || quantity < 1) return null;
@@ -14,24 +14,24 @@ export function normalizeLine(raw) {
     extraIds: [...new Set(Array.isArray(raw.extraIds) ? raw.extraIds : [])].filter(id => item.extras.includes(id)).sort(),
     removed: [...new Set(Array.isArray(raw.removed) ? raw.removed : [])].filter(name => item.removable.includes(name)).sort(),
     isMeal: !!(raw.isMeal && item.meal),
-    drink: raw.isMeal && item.meal && meal.drinks.includes(raw.drink) ? raw.drink : meal.drinks[0],
+    drink: raw.isMeal && item.meal && combo.drinks.includes(raw.drink) ? raw.drink : combo.drinks[0],
   };
 }
 
-export function unitPrice(line) {
-  const item = itemById(line.itemId);
+export function unitPrice(line, catalog = menu, addOns = extras, combo = meal) {
+  const item = itemById(line.itemId, catalog);
   if (!item) return 0;
-  return item.price + (line.isMeal ? meal.price : 0) + line.extraIds.reduce((sum, id) => sum + (extras.find(extra => extra.id === id)?.price || 0), 0);
+  return item.price + (line.isMeal ? combo.price : 0) + line.extraIds.reduce((sum, id) => sum + (addOns.find(extra => extra.id === id)?.price || 0), 0);
 }
 
 export function lineKey(line) {
   return JSON.stringify([line.itemId, [...line.extraIds].sort(), [...line.removed].sort(), line.isMeal, line.isMeal ? line.drink : null]);
 }
 
-export function summarizeCart(cart) {
+export function summarizeCart(cart, priceForLine = unitPrice) {
   return {
     quantity: cart.reduce((sum, line) => sum + line.quantity, 0),
-    total: cart.reduce((sum, line) => sum + unitPrice(line) * line.quantity, 0),
+    total: cart.reduce((sum, line) => sum + priceForLine(line) * line.quantity, 0),
   };
 }
 
@@ -83,7 +83,7 @@ export function validateCheckout(values, slots) {
   if (String(values.name || '').trim().length < 2) return 'Fyll i ditt namn, minst två tecken.';
   if (!/^[+\d\s()\-]{7,20}$/.test(String(values.phone || '').trim()) || String(values.phone).replace(/\D/g, '').length < 7) return 'Fyll i ett giltigt telefonnummer.';
   if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) return 'Kontrollera e-postadressen.';
-  if (!slots.some(slot => slot.value === values.pickupAt)) return 'Välj en tillgänglig upphämtningstid.';
+  if (!slots.some(slot => slot.value === values.pickupAt)) return 'Välj en tillgänglig tid för din beställning.';
   if (!values.accepted) return 'Bekräfta dina beställningsuppgifter för att fortsätta.';
   return null;
 }

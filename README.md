@@ -1,8 +1,10 @@
 # Smashverket · Burger restaurant template
 
+![Förhandsgranskning av Smashverkets startsida](docs/preview-desktop.png)
+
 En färdig svensk restaurangmall för en mindre burgarkedja. Saltbae Burger är huvudreferensen för gräddfärg, skogsgrönt, stora rubriker, handskrivna detaljer och sneda matbilder. Namn, restauranger, adresser, priser och innehåll är exempel.
 
-Mallen har responsiv startsida, digital meny, vegetariskt filter, produktanpassning, varukorg, tidbokning för upphämtning och en komplett demokassa. Foodora-länkar och adapter för riktig ordermottagning är förberedda.
+Mallen har responsiv startsida, digital meny, vegetariskt filter, produktanpassning, varukorg, tidsval för takeaway eller Äta här och en komplett demokassa. Foodora-länkar och adapter för riktig ordermottagning är förberedda.
 
 **Beställningar körs i demoläge. Inga pengar dras och inga beställningar skickas.**
 
@@ -16,6 +18,8 @@ npm run dev
 ```
 
 Öppna <http://127.0.0.1:5187>. `PORT` kan ändra porten. `npm run build` kontrollerar orderlogik och resurser och bygger till `build/`. `dist/` innehåller de redigerbara källfilerna, även om katalognamnet heter dist.
+
+Mobilförhandsgranskning finns lokalt på <http://127.0.0.1:5187/_preview?width=390>. Denna hjälprutt finns bara i utvecklingsservern och publiceras inte till Vercel.
 
 ## Publicera på Vercel
 
@@ -41,4 +45,4 @@ npm run check
 npm run build
 ```
 
-Kontrollerna täcker tillval och totalsummor, rimliga antal, öppettider och sommartid, kassavalidering, Foodora-adresser och lokala bild- och typsnittsfiler. Beställningsflödet har också provats i webbläsare.
+Kontrollerna täcker tillval och totalsummor, rimliga antal, öppettider och sommartid, kassavalidering, Foodora-adresser och lokala bild- och typsnittsfiler. Takeaway och Äta här har provats hela vägen till bekräftelse i webbläsare. Startsidan har granskats på desktop och vid 390 pixlars mobilbredd. Två burgare med meny och extra cheddar har verifierats till 352 kr, inklusive rätt bortval i kassan.

@@ -28,7 +28,6 @@ export const restaurant = {
     minimumOrder: 0,
     slotMinutes: 15,
     scheduledDays: 3,
-    paymentLabel: 'Betala vid hämtning',
   },
   locations: [
     {
@@ -38,6 +37,7 @@ export const restaurant = {
       image: 'assets/restaurant-soder.jpg',
       imageAlt: 'Varmt upplyst restaurang med träbord och avslappnad atmosfär',
       pickupMinutes: 20,
+      fulfillmentMethods: ['pickup', 'dine_in'],
       hours: { 0: ['12:00', '21:00'], 1: ['11:00', '21:00'], 2: ['11:00', '21:00'], 3: ['11:00', '21:00'], 4: ['11:00', '21:00'], 5: ['11:00', '22:00'], 6: ['12:00', '22:00'] },
       exceptions: {},
       foodoraUrl: null,
@@ -50,6 +50,7 @@ export const restaurant = {
       image: 'assets/restaurant-vasa.jpg',
       imageAlt: 'Ombonad kvartersrestaurang med gröna växter och mjukt ljus',
       pickupMinutes: 25,
+      fulfillmentMethods: ['pickup', 'dine_in'],
       hours: { 0: ['12:00', '20:00'], 1: ['11:00', '21:00'], 2: ['11:00', '21:00'], 3: ['11:00', '21:00'], 4: ['11:00', '21:00'], 5: ['11:00', '22:00'], 6: ['12:00', '22:00'] },
       exceptions: {},
       foodoraUrl: null,
@@ -62,6 +63,11 @@ export const categories = [
   { id: 'burgers', name: 'Burgare', short: 'Burgare' },
   { id: 'sides', name: 'Sides & dips', short: 'Sides & dips' },
   { id: 'drinks', name: 'Shakes & dryck', short: 'Shakes & dryck' },
+];
+
+export const fulfillmentMethods = [
+  { id: 'pickup', name: 'Hämta själv', shortName: 'Takeaway', heading: 'NÄR VILL DU HÄMTA?', timeLabel: 'Upphämtningstid', receiptLabel: 'Upphämtning', paymentLabel: 'Betala vid hämtning', note: 'Din beställning packas för att tas med. Uppge ordernumret när du hämtar.' },
+  { id: 'dine_in', name: 'Äta här', shortName: 'Äta här', heading: 'NÄR VILL DU ÄTA?', timeLabel: 'Ankomst & servering', receiptLabel: 'Ankomst & servering', paymentLabel: 'Betala i restaurangen', note: 'Du äter på restaurangen och hämtar maten vid disken. Beställningen reserverar inget bord.' },
 ];
 
 export const extras = [

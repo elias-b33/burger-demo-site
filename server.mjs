@@ -14,6 +14,13 @@ const server = http.createServer(async (request, response) => {
   }
   try {
     const pathname = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
+    if (pathname === '/_preview') {
+      const requestedWidth = Number(new URL(request.url, `http://${request.headers.host}`).searchParams.get('width') || 390);
+      const width = Math.max(320, Math.min(1600, Number.isFinite(requestedWidth) ? requestedWidth : 390));
+      response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      response.end(`<!doctype html><html lang="sv"><meta name="viewport" content="width=device-width"><title>Smashverket · responsiv förhandsgranskning</title><style>body{margin:0;min-height:100vh;background:#18392e;display:grid;place-items:start center;padding:20px;box-sizing:border-box}iframe{border:1px solid #f9e6d250;border-radius:9px;width:${width}px;height:900px;background:#f9e6d2;box-shadow:0 10px 60px #0004}body>p{color:#f9e6d2;font:12px Arial;letter-spacing:1px;margin:0 0 15px}</style><body><p>RESPONSIV FÖRHANDSGRANSKNING · ${width} PX</p><iframe src="/" title="Restaurangmallen vid ${width} pixlars bredd"></iframe></body></html>`);
+      return;
+    }
     const target = path.resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
     if (!target.startsWith(root + path.sep) || !(await stat(target)).isFile()) throw new Error('Not found');
     response.writeHead(200, {

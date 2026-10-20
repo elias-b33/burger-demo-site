@@ -2,8 +2,8 @@ import { restaurant } from './restaurant.config.js';
 
 /** Replace the adapter or set mode="api" and connect your own server endpoint. */
 export async function submitOrder(payload, idempotencyKey) {
-  if (restaurant.ordering.mode === 'demo') {
-    return { id: `DEMO-${crypto.randomUUID().slice(0, 6).toUpperCase()}`, status: 'demo', pickupAt: payload.pickupAt };
+  if (restaurant.demo || restaurant.ordering.mode === 'demo') {
+    return { id: `DEMO-${crypto.randomUUID().slice(0, 6).toUpperCase()}`, status: 'demo', requestedAt: payload.requestedAt, fulfillment: payload.fulfillment };
   }
   if (restaurant.ordering.mode !== 'api') throw new Error('Beställning är tillfälligt otillgänglig. Försök igen senare.');
   const controller = new AbortController();

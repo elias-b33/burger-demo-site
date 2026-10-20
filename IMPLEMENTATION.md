@@ -23,6 +23,10 @@ Menypriser anges i öre. Behåll stabila produkt- och tillvals-ID:n när du änd
 
 Byt de redaktionella texterna i `dist/index.html` när konceptet kräver det. Bildtexter, hero-rubrik, FAQ och berättelsen är innehåll, inte allmän orderlogik. Kontrollera riktiga ingredienser och allergener med restaurangen.
 
+## Hämta själv och Äta här
+
+`locations[].fulfillmentMethods` anger om en restaurang stödjer `pickup`, `dine_in` eller båda. Texterna för respektive läge finns i `fulfillmentMethods`. Gästen kan välja på restaurangsteget eller ändra i beställningsmenyn. Varukorg, kassa och bekräftelse visar samma val. För Äta här anges ankomst och serveringstid; maten hämtas vid disken och inget bord reserveras. Servern får `fulfillment` och `requestedAt`, och ska validera att enheten stöder valt läge.
+
 ## Foodora — enklaste kopplingen
 
 Sätt varje restaurangs **riktiga Foodora-menyadress** i `locations[].foodoraUrl`. Därefter visas en aktiv knapp för den restaurangen i leveransdialogen. Endast HTTPS-adresser på `foodora.se` eller dess underdomäner accepteras. `null` ger ett tydligt otillgängligt läge.
@@ -31,7 +35,7 @@ Gästen gör Foodora-beställningen hos Foodora. Den lokala varukorgen förs int
 
 ## Egen ordermottagning
 
-Demon är komplett att klicka igenom men saknar skarp ordermottagning, kassasystem och betalningsleverantör. Anslut en serverfunktion genom att sätta `ordering.mode = 'api'` och `ordering.apiEndpoint` till exempelvis `/api/orders`. Ha `restaurant.demo = true` tills hela integrationen är verifierad; därefter sätts flaggan till `false`.
+Demon är komplett att klicka igenom men saknar skarp ordermottagning, kassasystem och betalningsleverantör. Anslut en serverfunktion genom att konfigurera `ordering.apiEndpoint`, exempelvis `/api/orders`. Behåll `ordering.mode = 'demo'` och `restaurant.demo = true` under arbetet. När den riktiga ordertjänsten är verifierad ändras båda tillsammans till `ordering.mode = 'api'` och `restaurant.demo = false`. Bygget stoppar motstridiga inställningar, och adaptern skickar aldrig en riktig order medan demoflaggan är aktiv.
 
 Adaptern skickar `POST` med `Content-Type: application/json` och ett `Idempotency-Key`-headerfält:
 
@@ -50,9 +54,10 @@ Adaptern skickar `POST` med `Content-Type: application/json` och ett `Idempotenc
   }],
   "customer": {"name": "Exempel", "phone": "0700000000", "email": null},
   "notes": "En extra servett, tack",
-  "pickupAt": "2026-10-21T18:00",
+  "fulfillment": "dine_in",
+  "requestedAt": "2026-10-21T18:00",
   "timeZone": "Europe/Stockholm",
-  "paymentMethod": "pickup"
+  "paymentMethod": "pay_at_restaurant"
 }
 ```
 
@@ -66,7 +71,7 @@ Ett godkänt svar ser ut så här. `total` är i öre:
 
 Vid slutsåld rätt eller otillgänglig tid returnerar servern `409`. Övriga fel ger ett felmeddelande samtidigt som varukorgen finns kvar. Upprepning efter ett nätverksfel använder samma idempotensnyckel när samma order skickas oförändrad.
 
-Grundflödet använder **betalning vid hämtning**. Adaptern har även en utökningspunkt för ett svar med `status: "payment_required"` och en HTTPS-`paymentUrl`. För att använda onlinebetalning krävs dessutom en verifierad betalningssession, returvy, webhook och serverbaserad orderstatus. Dessa delar ingår inte i mallen och får inte ersättas av en påhittad betalningsbekräftelse.
+Grundflödet använder **betalning i restaurangen**, vid hämtning eller vid besöket beroende på beställningssätt. Adaptern har även en utökningspunkt för ett svar med `status: "payment_required"` och en HTTPS-`paymentUrl`. För att använda onlinebetalning krävs dessutom en verifierad betalningssession, returvy, webhook och serverbaserad orderstatus. Dessa delar ingår inte i mallen och får inte ersättas av en påhittad betalningsbekräftelse.
 
 Vercel-konfigurationen tillåter nätverksanrop till samma origin. Placera API-rutten under samma domän eller ändra CSP och CORS avsiktligt för ditt system. Vercels statiska deploy skapar inte `/api/orders` automatiskt.
 
