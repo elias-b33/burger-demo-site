@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { restaurant, menu, extras } from '../dist/restaurant.config.js';
 import { normalizeLine, unitPrice, summarizeCart, lineKey, pickupSlots, validateCheckout, locationStatus, money } from '../dist/order-core.js';
-import { foodoraLink, submitOrder } from '../dist/order-adapter.js';
+import { foodoraLink } from '../dist/order-adapter.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 assert.ok(['demo', 'api'].includes(restaurant.ordering.mode), 'Order mode must be demo or api');
@@ -55,12 +56,6 @@ assert.equal(foodoraLink({ foodoraUrl: 'https://www.foodora.se/restaurant/exampl
 assert.equal(foodoraLink({ foodoraUrl: 'https://foodora.se.attacker.example/' }), null);
 assert.equal(foodoraLink({ foodoraUrl: 'javascript:alert(1)' }), null);
 assert.equal(foodoraLink({ foodoraUrl: null }), null);
-if (restaurant.ordering.mode === 'demo') {
-  const result = await submitOrder({ requestedAt: slots[0].value, fulfillment: 'dine_in' }, 'demo-test');
-  assert.equal(result.status, 'demo');
-  assert.equal(result.fulfillment, 'dine_in');
-  assert.equal(result.requestedAt, slots[0].value);
-}
 assert.equal(new Set(menu.map(item => item.id)).size, menu.length);
 assert.ok(restaurant.locations.length >= 1);
 for (const item of menu) {
@@ -77,4 +72,20 @@ for (const match of html.matchAll(/(?:src|href)="((?:assets\/|styles\.css|app\.j
 const fonts = await readFile(path.join(root, 'dist/assets/fonts.css'), 'utf8');
 assert.ok(!fonts.includes('https://'), 'Fonts must be self-hosted');
 for (const match of fonts.matchAll(/url\(\.\/([^)]+)\)/g)) await access(path.join(root, 'dist/assets', match[1]));
-console.log('Checks passed: totals, modifiers, quantities, opening hours, DST, checkout validation, Foodora URLs, demo order and all referenced assets.');
+const sourceRoot = path.join(root, 'dist');
+for (const file of await readdir(sourceRoot, { recursive:true })) {
+  if (!/\.(js|html)$/.test(file)) continue;
+  const absolute = path.join(sourceRoot,file);
+  const source = await readFile(absolute,'utf8');
+  if (file.endsWith('.js')) {
+    execFileSync(process.execPath,['--check',absolute]);
+    for (const match of source.matchAll(/from\s+['"](\.[^'"]+)['"]/g)) await access(path.resolve(path.dirname(absolute),match[1]));
+  } else {
+    for (const match of source.matchAll(/(?:src|href)="([^"#]+)"/g)) {
+      if (/^(https?:|mailto:|tel:)/.test(match[1])) continue;
+      await access(path.resolve(match[1].startsWith('/') ? sourceRoot : path.dirname(absolute),'.' + (match[1].startsWith('/') ? match[1] : '/' + match[1])));
+    }
+  }
+}
+execFileSync(process.execPath, ['--test', 'tests/demo-engine.test.mjs'], { cwd: root, stdio: 'inherit' });
+console.log('Checks passed: totals, modifiers, quantities, opening hours, DST, checkout validation, Foodora URLs, demo workflow and referenced assets.');

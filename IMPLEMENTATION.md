@@ -7,6 +7,10 @@
 | `dist/restaurant.config.js` | Varumärke, restauranger, öppettider, meny, tillval och orderinställningar |
 | `dist/order-core.js` | Prisberäkning, varukorg, tidsluckor och validering |
 | `dist/order-adapter.js` | Gränsen mellan demo och egen ordertjänst |
+| `dist/demo-engine.js` | Ordervalidering, sparade orderrader, status, kapacitet och driftläge |
+| `dist/demo-store.js` | IndexedDB, fliksynk och transport till lokal kassademo |
+| `dist/demo-dashboard.js` | Restaurangens mottagning, historik och meny-/driftvy |
+| `integrations/eleva-pos/` | Lokal anslutning till ert befintliga kassaprojekt |
 | `dist/app.js` | Vyer och interaktioner |
 | `dist/styles.css` | Layout, typografi och responsiva varianter |
 | `vercel.json` | Vercels bygginställningar och HTTP-headers |
@@ -33,9 +37,13 @@ Sätt varje restaurangs **riktiga Foodora-menyadress** i `locations[].foodoraUrl
 
 Gästen gör Foodora-beställningen hos Foodora. Den lokala varukorgen förs inte över, och denna länkbaserade koppling synkroniserar inte meny, priser, lager eller ordrar. En djupare integration kopplas separat i serverlagret till den orderpartner som restaurangen använder. Lägg inga API-nycklar i konfigurationsfilen eller webbläsaren.
 
-## Egen ordermottagning
+## Fungerande demo och egen ordermottagning
 
-Demon är komplett att klicka igenom men saknar skarp ordermottagning, kassasystem och betalningsleverantör. Anslut en serverfunktion genom att konfigurera `ordering.apiEndpoint`, exempelvis `/api/orders`. Behåll `ordering.mode = 'demo'` och `restaurant.demo = true` under arbetet. När den riktiga ordertjänsten är verifierad ändras båda tillsammans till `ordering.mode = 'api'` och `restaurant.demo = false`. Bygget stoppar motstridiga inställningar, och adaptern skickar aldrig en riktig order medan demoflaggan är aktiv.
+Webbläsardemon tar emot testordrar i IndexedDB och synkar meny, driftläge och status mellan flikar i samma webbläsare. `/demo/` är restaurangens orderöversikt. Status går från mottagen till bekräftad, tillagas, klar och utlämnad; avböj/avbryt har en synlig orsak. Det finns ingen servergemensam orderdatabas i den publika statiska versionen.
+
+Den lokala kombinationsdemon går längre och använder ert befintliga kassaprojekts tjänster. Accepterade order blir testnotor och riktiga testbongar i en separat databas. Se [POS-INTEGRATION.md](POS-INTEGRATION.md) för start, verifiering och exakta begränsningar. Låt demoflaggorna vara aktiva även i denna isolerade visning.
+
+För skarp drift ansluts en driftsatt serverfunktion genom `ordering.apiEndpoint`, exempelvis `/api/orders`. Behåll `ordering.mode = 'demo'` och `restaurant.demo = true` under arbetet. När den riktiga ordertjänsten är verifierad ändras båda tillsammans till `ordering.mode = 'api'` och `restaurant.demo = false`. Bygget stoppar motstridiga inställningar.
 
 Adaptern skickar `POST` med `Content-Type: application/json` och ett `Idempotency-Key`-headerfält:
 
@@ -44,6 +52,7 @@ Adaptern skickar `POST` med `Content-Type: application/json` och ett `Idempotenc
   "restaurantId": "smashverket",
   "locationId": "sodermalm",
   "contentVersion": 1,
+  "expectedTotal": 17600,
   "items": [{
     "itemId": "original",
     "quantity": 1,
@@ -77,4 +86,6 @@ Vercel-konfigurationen tillåter nätverksanrop till samma origin. Placera API-r
 
 ## Personuppgifter
 
-Endast varukorg och restaurangval sparas i `localStorage`. Demokassans kontaktfält hålls i minnet och lämnar inte webbläsaren. För en riktig tjänst behöver restaurangen publicera sin egen integritetstext, retention och information om personuppgiftsansvarig och underleverantörer. Byt även exempeladresser, exempeltelefonnummer, innehåll och bilder före en verklig restauranglansering.
+Varukorg, restaurangval och genväg till senaste demoorder sparas i `localStorage`. Orderrader, tider, driftläge och status sparas i IndexedDB i webbläsardemon. Kontaktfält och fria kommentarer hålls i minnet och tas bort från demotransporten. Order äldre än 24 timmar filtreras bort vid nästa läsning. Den lokala kassademon använder i stället en separat testdatabas; kassans journal behålls i den testomgångens mapp.
+
+För en riktig tjänst behöver restaurangen publicera sin egen integritetstext, retention och information om personuppgiftsansvarig och underleverantörer. Byt även exempeladresser, exempeltelefonnummer, innehåll och bilder före en verklig restauranglansering.

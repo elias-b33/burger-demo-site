@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="demo-transport" content="browser">
   <meta name="theme-color" content="#254b3e">
   <meta name="description" content="Smashade burgare, krispiga pommes och riktigt gott häng. Välj din restaurang och beställ takeaway direkt hos Smashverket.">
   <meta property="og:title" content="Smashverket — småskaligt, storslaget gott.">
@@ -14,6 +15,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="tracking.css">
   <link rel="preload" as="image" href="assets/hero-meal.jpg">
 </head>
 <body>
@@ -68,7 +70,7 @@
     <section class="faq-section section-shell" id="fragor" aria-labelledby="faq-title"><div><span class="eyebrow">BRA ATT VETA</span><h2 id="faq-title">NÅGOT DU<br>UNDRAR?</h2><span class="handwritten">Vi har svar.</span></div><div class="faq-list"><details><summary>Hur fungerar onlinebeställning?</summary><p>Välj Hämta själv eller Äta här, välj restaurang och lägg dina favoriter i varukorgen. Välj en tid i kassan och uppge ditt ordernummer vid disken när du kommer. Äta här reserverar inget bord. Den här mallen körs i demoläge, så ingen riktig beställning skickas.</p></details><details><summary>Kan jag anpassa min burgare?</summary><p>Självklart. Tryck på en burgare för att lägga till extra ost, välja en meny eller plocka bort ingredienser. Du ser alltid det uppdaterade priset innan du lägger till den.</p></details><details><summary>Har ni vegetariska alternativ?</summary><p>Ja! Green Machine är vår vegetariska burgare. Använd filtret ”Bara veggo” för att hitta vegetariska burgare, sides och drycker. Vegetarisk betyder inte alltid vegansk.</p></details><details><summary>Var hittar jag information om allergener?</summary><p>Öppna en rätt för att se dess angivna allergener. Vid allergi, kontakta restaurangen innan du beställer. Vi kan inte garantera en miljö fri från spår av allergener. I den här restaurangmallen är innehållet exempeldata.</p></details><details><summary>Kan jag få maten hemlevererad?</summary><p>Välj ”Kolla hemleverans” och din restaurang för att se om Foodora finns tillgängligt. Du slutför då beställning och betalning hos Foodora. Takeaway på vår sida hämtar du själv.</p></details></div></section>
   </main>
 
-  <footer class="site-footer"><div class="footer-top"><a class="brand footer-brand" href="#"><span class="wordmark" data-brand="wordmark">#smashverket</span><span class="brand-tagline" data-brand="tagline">BURGERS & GOOD TIMES</span></a><p class="handwritten">Stay hungry. Stay juicy.</p><a class="text-link" data-brand="email" href="mailto:hej@smashverket.example">SÄG HEJ ↗</a></div><div class="footer-bottom"><span>© <span id="year">2026</span> <span data-brand="name">Smashverket</span></span><nav aria-label="Sidfot"><a href="#meny">Meny</a><a href="#restauranger">Restauranger</a><button data-action="privacy">Integritet</button></nav><span class="demo-disclosure">Restaurangmall · Namn, adresser och meny är exempel.</span></div></footer>
+  <footer class="site-footer"><div class="footer-top"><a class="brand footer-brand" href="#"><span class="wordmark" data-brand="wordmark">#smashverket</span><span class="brand-tagline" data-brand="tagline">BURGERS & GOOD TIMES</span></a><p class="handwritten">Stay hungry. Stay juicy.</p><a class="text-link" data-brand="email" href="mailto:hej@smashverket.example">SÄG HEJ ↗</a></div><div class="footer-bottom"><span>© <span id="year">2026</span> <span data-brand="name">Smashverket</span></span><nav aria-label="Sidfot"><a href="#meny">Meny</a><a href="#restauranger">Restauranger</a><button data-action="privacy">Integritet</button><a href="/demo/">Restaurangdemo ↗</a><button data-action="track-last" hidden>Följ din demobeställning</button></nav><span class="demo-disclosure">Restaurangmall · Namn, adresser och meny är exempel.</span></div></footer>
 
   <nav class="bottom-dock" aria-label="Snabbnavigering"><a href="#meny">VÅR MENY</a><a href="#restauranger">HITTA OSS</a><button data-action="order">BESTÄLL NU <span aria-hidden="true">↗</span></button><button class="dock-cart" data-action="cart" hidden>VARUKORG <span class="dock-count">0</span></button></nav>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

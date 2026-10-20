@@ -1,9 +1,12 @@
 import { restaurant } from './restaurant.config.js';
+import { sendDemoOrder, rememberOrder } from './demo-store.js';
 
 /** Replace the adapter or set mode="api" and connect your own server endpoint. */
 export async function submitOrder(payload, idempotencyKey) {
   if (restaurant.demo || restaurant.ordering.mode === 'demo') {
-    return { id: `DEMO-${crypto.randomUUID().slice(0, 6).toUpperCase()}`, status: 'demo', requestedAt: payload.requestedAt, fulfillment: payload.fulfillment };
+    const demoOrder = await sendDemoOrder(payload, idempotencyKey);
+    rememberOrder(demoOrder);
+    return { id: demoOrder.id, status: 'demo', requestedAt: demoOrder.requestedAt, fulfillment: demoOrder.fulfillment, total: demoOrder.total, demoOrder };
   }
   if (restaurant.ordering.mode !== 'api') throw new Error('Beställning är tillfälligt otillgänglig. Försök igen senare.');
   const controller = new AbortController();

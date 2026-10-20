@@ -4,9 +4,17 @@
 
 En färdig svensk restaurangmall för en mindre burgarkedja. Saltbae Burger är huvudreferensen för gräddfärg, skogsgrönt, stora rubriker, handskrivna detaljer och sneda matbilder. Namn, restauranger, adresser, priser och innehåll är exempel.
 
-Mallen har responsiv startsida, digital meny, vegetariskt filter, produktanpassning, varukorg, tidsval för takeaway eller Äta här och en komplett demokassa. Foodora-länkar och adapter för riktig ordermottagning är förberedda.
+Mallen har responsiv startsida, digital meny, vegetariskt filter, produktanpassning, varukorg och tidsval för takeaway eller **Äta här**. Ett fungerande demoflöde binder ihop gästens beställning, restaurangens orderöversikt, tillagning och gästens orderstatus. Personalen kan ändra pris, slutsålt, ledtid, paus och kapacitet per restaurang.
 
-**Beställningar körs i demoläge. Inga pengar dras och inga beställningar skickas.**
+**Alla beställningar är testorder. Inga riktiga betalningar, SMS eller mejl genomförs.**
+
+- [Öppna restaurangsidan](https://burger-demo-site.vercel.app/)
+- [Öppna restaurangens orderöversikt](https://burger-demo-site.vercel.app/demo/)
+- [Visa demon på två minuter](DEMO-GUIDE.md)
+
+Den publika demon delar data mellan flikar i samma webbläsare. Det finns också en **verifierad lokal anslutning till ert befintliga kassasystem**, med en egen testdatabas, riktiga testnotor och köks-/barbongar. Kökets status läses tillbaka till gästen. Se [POS-INTEGRATION.md](POS-INTEGRATION.md) för start och produktionsgränser.
+
+![Orderöversikten under en lokal visning med testkassan ansluten](docs/preview-orders.png)
 
 ## Starta lokalt
 
@@ -17,9 +25,17 @@ npm ci
 npm run dev
 ```
 
-Öppna <http://127.0.0.1:5187>. `PORT` kan ändra porten. `npm run build` kontrollerar orderlogik och resurser och bygger till `build/`. `dist/` innehåller de redigerbara källfilerna, även om katalognamnet heter dist.
+Öppna <http://127.0.0.1:5187> och <http://127.0.0.1:5187/demo/>. `PORT` kan ändra porten. `npm run build` kör kontroller och tester och bygger till `build/`. `dist/` innehåller de redigerbara källfilerna, även om katalognamnet heter dist.
 
 Mobilförhandsgranskning finns lokalt på <http://127.0.0.1:5187/_preview?width=390>. Denna hjälprutt finns bara i utvecklingsservern och publiceras inte till Vercel.
+
+För en kombinerad visning med kassaprojektet, använd dess befintliga installation:
+
+```powershell
+npm run demo:pos -- --pos-project 'C:\sökväg\till\lagustosa-kassa'
+```
+
+Det startar gästsidan på port **5197**, orderöversikten på **5197/demo/** och er befintliga testkassa på **5196**. Varje start skapar en separat demodatabas. Vanliga kassadata och kassans källkod ändras inte.
 
 ## Publicera på Vercel
 
@@ -30,13 +46,13 @@ Mobilförhandsgranskning finns lokalt på <http://127.0.0.1:5187/_preview?width=
 
 Valfri `SITE_URL=https://din-domän.se` ger absoluta delningsbilder för egen domän. Annars använder bygget Vercels automatiska URL-variabler. Demoversionen har `noindex`; sätt `restaurant.demo` till `false` först när den riktiga restauranginformationen och ordermottagningen är klara.
 
-Vercel serverar de statiska filerna. `server.mjs` är endast för lokal utveckling. En eventuell API-adapter kräver en riktig serverfunktion eller ett eget ordersystem; en sådan tjänst ingår inte i demon.
+Vercel serverar de statiska filerna och webbläsardemon utan hemligheter. `server.mjs` och POS-adaptern körs lokalt. En skarp tjänst som ska ta emot order från olika kunders enheter behöver en driftsatt ordermottagare; den publika statiska demon ansluter inte till er ordinarie kassa.
 
 ## Anpassa för en ny restaurang
 
 Ändra `dist/restaurant.config.js`: varumärke, färger, restauranger, öppettider, ledtid, meny, priser, tillval och Foodora-länkar. Ta bort eller lägg till restaurangobjekt för en eller två enheter. Priser anges i **öre**, exempelvis `11900` för 119 kr. Byt även matbilder och redaktionell text i `dist/index.html` efter behov.
 
-Se [IMPLEMENTATION.md](IMPLEMENTATION.md) för orderintegration och [DESIGN-RESEARCH.md](DESIGN-RESEARCH.md) för designbesluten. Bildkällor och genereringsprompter finns i [ASSETS.md](ASSETS.md).
+Se [IMPLEMENTATION.md](IMPLEMENTATION.md) för anpassning, [POS-INTEGRATION.md](POS-INTEGRATION.md) för kassakopplingen och [DESIGN-RESEARCH.md](DESIGN-RESEARCH.md) för design- och funktionsbesluten. Bildkällor och genereringsprompter finns i [ASSETS.md](ASSETS.md).
 
 ## Verifiering
 
@@ -45,4 +61,12 @@ npm run check
 npm run build
 ```
 
-Kontrollerna täcker tillval och totalsummor, rimliga antal, öppettider och sommartid, kassavalidering, Foodora-adresser och lokala bild- och typsnittsfiler. Takeaway och Äta här har provats hela vägen till bekräftelse i webbläsare. Startsidan har granskats på desktop och vid 390 pixlars mobilbredd. Två burgare med meny och extra cheddar har verifierats till 352 kr, inklusive rätt bortval i kassan.
+Bygget täcker tillval och totalsummor, antal, öppettider och sommartid, kassavalidering, Foodora-adresser och lokala resurser. Tolv ytterligare tester verifierar demoflödet: idempotens, kapacitet, paus, slutsålt, prisändring, otillåtna rader, statusövergångar och POS-mappning.
+
+Kassaintegrationen verifieras separat mot det befintliga projektet:
+
+```powershell
+npm run verify:pos -- --pos-project 'C:\sökväg\till\lagustosa-kassa'
+```
+
+Takeaway och Äta här har provats i webbläsare. En Äta här-order med meny, extra cheddar och utan pickles har gått från gästsidan till kassans befintliga köksvy och tillbaka till gästens klarstatus. Pris- och slutsåltändringar har följts över flikar. Startsidan har granskats på desktop och vid 390 pixlars mobilbredd.

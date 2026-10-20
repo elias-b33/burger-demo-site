@@ -1,0 +1,23 @@
+import { restaurant } from './restaurant.config.js';
+import { money } from './order-core.js';
+import { snapshotDetails } from './demo-engine.js';
+const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+export function trackingMarkup(order) {
+  const location = restaurant.locations.find(location => location.id === order.locationId);
+  const dine = order.fulfillment === 'dine_in';
+  const cancelled = ['rejected','cancelled'].includes(order.status);
+  const titles = { received:'VI HAR FÅTT<br>DIN BESTÄLLNING.', accepted:'DIN BURGARE<br>ÄR PÅ GÅNG.', preparing:'NU FRÄSER DET<br>PÅ STEKBORDET.', ready:dine ? 'DAGS ATT<br>HUGGA IN.' : 'DIN BESTÄLLNING<br>ÄR KLAR ATT HÄMTA.', completed:dine ? 'TACK FÖR<br>DITT BESÖK.' : 'SMAKLIG<br>MÅLTID!', rejected:'DET GICK<br>INTE DEN HÄR GÅNGEN.', cancelled:'BESTÄLLNINGEN<br>ÄR AVBRUTEN.' };
+  const descriptions = {
+    received:'Restaurangen kontrollerar din beställning. Vänta på bekräftelsen här innan du räknar med att maten tillagas.',
+    accepted:'Restaurangen har bekräftat dina val och skickat beställningen till köket.',
+    preparing:'Köket tillagar din beställning. Du ser här när den är klar.',
+    ready:dine ? 'Uppge ditt ordernummer vid disken. Din beställning är klar för servering.' : 'Kom till restaurangen och uppge ditt ordernummer vid disken.',
+    completed:'Hela demoflödet är genomgånget. Ingen riktig mat eller betalning har hanterats.',
+    rejected:'Restaurangen kunde inte ta emot beställningen. Inga pengar har dragits i demon.',
+    cancelled:'Restaurangen har avbrutit beställningen. Inga pengar har dragits i demon.',
+  };
+  const steps = [['received','Mottagen'],['accepted','Bekräftad'],['preparing','Tillagas'],['ready',dine ? 'Klar för servering' : 'Klar att hämta'],['completed',dine ? 'Serverad' : 'Utlämnad']];
+  const current = steps.findIndex(([status]) => status === order.status);
+  const date = new Intl.DateTimeFormat('sv-SE', { day:'numeric',month:'long',timeZone:'UTC' }).format(new Date(`${order.requestedAt.slice(0,10)}T12:00:00Z`));
+  return `<section class="confirmation order-tracking"><span class="tracking-demo-label">DEMOBESTÄLLNING · INGA RIKTIGA KÖP</span><div class="tracking-live-state${cancelled ? ' issue' : ''}"><i aria-hidden="true"></i>${cancelled ? 'Beställningen kan inte fullföljas' : 'Statusen uppdateras automatiskt'}</div><h3>${titles[order.status] || titles.received}</h3><p class="tracking-description">${descriptions[order.status] || ''}</p>${order.reason ? `<p class="tracking-reason"><strong>Orsak:</strong> ${esc(order.reason)}</p>` : ''}${cancelled ? '' : `<ol class="tracking-progress" aria-label="Din beställnings status">${steps.map(([key,label],index) => `<li class="${index < current ? 'complete' : index === current ? 'current' : ''}" ${index === current ? 'aria-current="step"' : ''}><span>${index < current ? '✓' : index + 1}</span><small>${label}</small></li>`).join('')}</ol>`}<div class="confirmation-receipt"><div><span>Ordernummer</span><strong>${esc(order.id)}</strong></div><div><span>Restaurang</span><strong>${esc(restaurant.brand.name)} ${esc(location?.name)}<br>${esc(location?.address)}</strong></div><div><span>Beställningssätt</span><strong>${dine ? 'Äta här' : 'Hämta själv'}</strong></div><div><span>${dine ? 'Ankomst & servering' : 'Upphämtningstid'}</span><strong>${date} · ${order.requestedAt.slice(11).replace(':','.')}</strong></div><div><span>Din beställning</span><strong>${order.items.map(line => `${line.quantity} × ${esc(line.name)}${snapshotDetails(line) ? `<small class="receipt-details">${esc(snapshotDetails(line))}</small>` : ''}`).join('<br>')}</strong></div><div><span>Totalt i demon</span><strong>${money(order.total)}</strong></div><div><span>Betalning</span><strong>${order.paymentStatus === 'paid_in_pos' ? 'Betald i testkassan' : cancelled ? 'Ingen betalning genomförd' : 'Betalas i restaurangen'}</strong></div></div><div class="tracking-demo-next"><span class="eyebrow">PROVA RESTAURANGENS SIDA AV FLÖDET</span><p>${cancelled || order.status === 'completed' ? 'Se orderhistoriken eller prova en ny beställning i restaurangens orderöversikt.' : 'Öppna orderöversikten i en ny flik. Flytta beställningen genom köket, så uppdateras statusen här.'}</p><a class="button button-green" href="/demo/" target="_blank" rel="noopener">ÖPPNA ORDERÖVERSIKTEN ↗</a></div><button class="back-button" style="display:block;margin:25px auto 0" data-close="order-dialog">Tillbaka till restaurangen</button></section>`;
+}
