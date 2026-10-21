@@ -69,4 +69,6 @@ Kassaintegrationen verifieras separat mot det befintliga projektet:
 npm run verify:pos -- --pos-project 'C:\sökväg\till\lagustosa-kassa'
 ```
 
-Takeaway och Äta här har provats i webbläsare. En Äta här-order med meny, extra cheddar och utan pickles har gått från gästsidan till kassans befintliga köksvy och tillbaka till gästens klarstatus. Pris- och slutsåltändringar har följts över flikar. Startsidan har granskats på desktop och vid 390 pixlars mobilbredd.
+Takeaway och Äta här har provats i webbläsare. En Äta här-order med meny, extra cheddar och utan pickles har gått från gästsidan till kassans befintliga köksvy och tillbaka till gästens klarstatus. Pris- och slutsåltändringar har följts över flikar.
+
+Mobilens komposition och formulär har ett separat presentationslager i `dist/mobile.css`. Startsidan och kassan har kontrollerats vid 320, 360, 390, 430, 600 och 760 pixlar utan horisontellt överflöde. Produktval, restaurangval, varukorg, orderstatus, navigation och driftreglage har också granskats. Ett mobilköp med tio menyer och extra cheddar, totalt 1 960 kr, har skickats och bekräftats från restaurangvyn. Datorns startsida har granskats vid 1280 pixlar. Pilar och bockar ritas med lokala SVG-filer för samma utseende på olika telefoner.

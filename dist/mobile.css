@@ -1,0 +1,285 @@
+/* Mobile composition. Desktop keeps its existing layout and proportions. */
+@media (max-width: 760px) {
+  .site-header { height: 86px; padding-inline: 20px; }
+  .site-header .brand { min-width: 0; max-width: 100%; }
+  .site-header .wordmark { font-size: clamp(24px, 7.5vw, 34px); letter-spacing: -1.5px; }
+  .site-header .brand-tagline { font-size: 9px; letter-spacing: 1.6px; }
+  .hamburger, .bag-button { width: 42px; height: 42px; }
+
+  .announcement { height: auto; min-height: 28px; padding: 7px 16px; text-align: center; }
+  .announcement-track { display: block; width: 100%; white-space: normal; animation: none; }
+  .announcement span { display: none; padding: 0; font-size: 9px; line-height: 1.5; letter-spacing: .35px; }
+  .announcement span:first-child { display: block; }
+  .announcement b { display: none; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 16px;
+    height: auto;
+    min-height: 0;
+    padding: 18px 24px 24px;
+  }
+  .hero-center { position: relative; inset: auto; width: 100%; grid-column: 1 / -1; grid-row: 1; transform: none; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: 1.4px; line-height: 1.6; }
+  .hero h1 { font-size: clamp(112px, 31vw, 180px); line-height: .98; margin-top: 10px; }
+  .hero-ghost { display: none; }
+  .hero-script { font-size: clamp(26px, 7vw, 42px); white-space: normal; margin-top: 10px; }
+  .hero-description { font-size: 13.5px; line-height: 1.75; margin-top: 22px; text-wrap: balance; }
+  .hero-photo { position: relative; inset: auto; width: 100%; max-width: none; aspect-ratio: .78; grid-row: 2; border-radius: 5px; }
+  .hero-photo-left { grid-column: 1; transform: rotate(-4deg); margin-block: 0 14px; }
+  .hero-photo-right { grid-column: 2; transform: rotate(4deg); margin-block: 14px 0; }
+  .hero-photo-left:hover { transform: rotate(-4deg); }
+  .hero-photo-right:hover { transform: rotate(4deg); }
+  .hero-photo::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, #10251e66); pointer-events: none; }
+  .hero-photo figcaption { z-index: 1; bottom: 12px; left: 9px; right: 9px; font-size: clamp(18px, 5.2vw, 27px); line-height: 1.05; transform: none; color: var(--cream-light); }
+  .hero-photo-right figcaption { font-size: clamp(24px, 6.3vw, 34px); }
+  .hero-bottom { position: static; grid-column: 1 / -1; gap: 10px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid var(--line); font-size: 8px; letter-spacing: .7px; line-height: 1.6; }
+
+  .big-ticker { padding: 24px; }
+  .big-ticker > div { width: 100%; display: flex; flex-direction: column; gap: 5px; transform: none; text-align: center; }
+  .big-ticker span { font-size: clamp(36px, 10.5vw, 64px); letter-spacing: -.5px; line-height: 1; }
+  .big-ticker b, .big-ticker span[aria-hidden] { display: none; }
+
+  .section-shell { padding: 60px 24px; min-width: 0; }
+  .section-heading { gap: 22px; }
+  .section-heading > div { min-width: 0; max-width: 100%; }
+  .section-heading h2, .story-copy h2, .takeaway-title h2, .faq-section h2 { font-size: clamp(48px, 13.4vw, 74px); letter-spacing: -.7px; line-height: .98; }
+  .locations-section h2 { font-size: clamp(44px, 12.5vw, 68px); }
+  .eyebrow { font-size: 10px; letter-spacing: 1.3px; }
+  .section-intro p { font-size: 14px; line-height: 1.7; }
+  .section-intro .handwritten { font-size: 34px; }
+
+  .menu-toolbar { gap: 14px; margin-top: 28px; padding-bottom: 18px; }
+  .category-tabs { display: grid; grid-template-columns: .85fr 1.15fr 1.3fr; gap: 6px; width: 100%; min-width: 0; }
+  .category-tab, .order-menu-toolbar .category-tab { min-width: 0; min-height: 46px; padding: 9px 6px; font-size: 18px; line-height: 1.15; }
+  .veg-toggle { font-size: 13px; min-height: 36px; gap: 9px; }
+  .veg-toggle input { width: 18px; height: 18px; margin: 0; }
+  .food-grid { gap: 30px 16px; }
+  .food-card { display: flex; flex-direction: column; }
+  .food-image-button { aspect-ratio: .9; }
+  .food-badge { top: 10px; left: 8px; font-size: 8px; letter-spacing: .5px; padding: 5px 7px; }
+  .food-card-heading { align-items: flex-start; flex-direction: column; gap: 7px; margin-top: 16px; }
+  .food-card h3 { font-size: clamp(22px, 6vw, 30px); line-height: 1.1; }
+  .food-card-price { font-size: 22px; line-height: 1.1; }
+  .food-card-description { flex: 1; font-size: 13px; line-height: 1.65; margin-top: 10px; min-height: 4.95em; }
+  .food-card-link { min-height: 44px; margin-top: 12px; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; gap: 7px; font-size: 11px; line-height: 1.4; letter-spacing: .25px; }
+  .food-card-link .ui-arrow { flex-shrink: 0; width: 15px; height: 15px; }
+  .menu-bottom { gap: 18px; }
+  .menu-bottom p { font-size: 13px; line-height: 1.7; }
+  .menu-bottom .button { min-height: 52px; font-size: 20px; white-space: normal; }
+
+  .story-section { padding: 60px 24px; gap: 40px; }
+  .story-photo-wrap { width: 100%; max-width: 420px; padding: 0 10px; }
+  .story-photo { transform: rotate(-3deg); padding: 10px 10px 52px; }
+  .story-photo figcaption { font-size: clamp(23px, 7vw, 31px); margin-top: 12px; }
+  .round-stamp { display: none; }
+  .story-copy { min-width: 0; }
+  .story-copy p { font-size: 14px; line-height: 1.8; }
+  .story-copy .text-link { font-size: 19px; gap: 14px; max-width: 100%; line-height: 1.3; }
+  .story-note { font-size: clamp(27px, 7.5vw, 37px); transform: rotate(-3deg); line-height: 1.2; }
+  .takeaway-section { gap: 30px; }
+  .takeaway-title .handwritten { font-size: clamp(27px, 7.2vw, 36px); transform: rotate(-3deg); line-height: 1.2; }
+  .takeaway-steps li { gap: 18px; padding-block: 22px; }
+  .takeaway-steps li > span { font-size: 44px; flex-shrink: 0; }
+  .takeaway-steps h3 { font-size: 25px; line-height: 1.1; }
+  .takeaway-steps p { font-size: 13px; }
+
+  .locations-grid { gap: 36px; }
+  .location-image { height: auto; aspect-ratio: 1.55; }
+  .location-topline { gap: 10px; flex-wrap: wrap; align-items: center; }
+  .location-topline h3 { font-size: 35px; }
+  .location-status { font-size: 12px; line-height: 1.5; }
+  .location-address { font-size: 14px; }
+  .location-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .location-links .button { grid-column: 1 / -1; width: 100%; min-height: 48px; justify-content: space-between; }
+  .location-links > a { display: flex; align-items: center; min-height: 44px; font-size: 12px; line-height: 1.4; text-decoration: underline; text-underline-offset: 4px; }
+  .location-links > a:last-child { justify-content: flex-end; }
+  .location-hours { font-size: 13px; }
+  .location-hours summary { min-height: 44px; align-items: center; }
+  .delivery-strip { padding: 42px 24px; gap: 25px; }
+  .delivery-strip > div { min-width: 0; max-width: 100%; }
+  .delivery-strip h2 { font-size: clamp(42px, 11.3vw, 66px); line-height: 1; }
+  .delivery-strip p { font-size: 14px; }
+  .delivery-strip .eyebrow { font-size: 9px; line-height: 1.7; }
+  .delivery-strip > .button { white-space: normal; min-height: 50px; }
+  .faq-section { gap: 28px; }
+  .faq-list summary { min-height: 32px; font-size: 14px; gap: 16px; }
+  .faq-list summary::after { flex-shrink: 0; }
+  .faq-list details p { font-size: 14px; line-height: 1.8; }
+
+  .site-footer { padding: 44px 24px calc(116px + env(safe-area-inset-bottom)); }
+  .footer-top, .footer-bottom, .footer-bottom > * { min-width: 0; max-width: 100%; }
+  .footer-top > .handwritten { font-size: 30px; align-self: flex-start; transform: rotate(-3deg); }
+  .footer-brand .wordmark { font-size: clamp(27px, 8vw, 38px); }
+  .footer-bottom { align-items: flex-start; flex-direction: column; font-size: 12px; gap: 18px; }
+  .footer-bottom nav { flex-wrap: wrap; gap: 6px 20px; width: 100%; }
+  .footer-bottom nav > * { display: inline-flex; align-items: center; min-height: 40px; font-size: 12px; line-height: 1.5; }
+  .demo-disclosure { font-size: 11px; line-height: 1.7; }
+  .demo-guest-entry { padding: 18px 24px; font-size: 12px; line-height: 1.7; }
+  .demo-guest-entry a { display: block; margin: 7px 0 0; }
+
+  .bottom-dock { left: 16px; right: 16px; bottom: calc(12px + env(safe-area-inset-bottom)); transform: none; width: auto; max-width: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 5px; }
+  .bottom-dock > a, .bottom-dock > button { min-width: 0; min-height: 48px; padding: 9px 5px; font-size: 17px; gap: 4px; line-height: 1.2; white-space: normal; }
+  .bottom-dock > button[data-action=order] .ui-arrow { display: none; }
+  .bottom-dock .dock-cart { min-width: 0; padding: 9px 4px; font-size: 16px; gap: 4px; }
+  .dock-count { flex-shrink: 0; width: 18px; height: 18px; font-size: 9px; }
+  .toast { width: max-content; max-width: calc(100vw - 32px); padding: 13px 16px; line-height: 1.6; overflow-wrap: anywhere; }
+
+  /* One scroll surface per dialog; all content keeps its intrinsic height. */
+  dialog, dialog * { min-width: 0; }
+  .nav-dialog { padding: 60px 24px 30px; }
+  .nav-dialog nav a { font-size: clamp(32px, 9vw, 48px); min-height: 60px; gap: 10px; }
+  .nav-dialog .button { width: 100%; white-space: normal; }
+  .order-dialog { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; }
+  .order-header { position: sticky; top: 0; z-index: 5; padding: calc(16px + env(safe-area-inset-top)) 20px 16px; align-items: center; }
+  .order-header > div { flex: 1; }
+  .order-header h2 { font-size: clamp(28px, 8vw, 40px); line-height: 1; }
+  .order-header .eyebrow { font-size: 8px; letter-spacing: 1.1px; }
+  .close-button { width: 42px; height: 42px; min-width: 42px; flex-shrink: 0; }
+  .order-progress { padding: 14px 20px; gap: 4px; }
+  .order-step { font-size: 11px; gap: 6px; }
+  .order-step b { flex-shrink: 0; }
+  .step-separator { flex: 1; max-width: 30px; min-width: 6px; margin: 0 3px; }
+  .order-location { padding: 28px 20px; }
+  .order-location h3 { font-size: clamp(30px, 8.5vw, 40px); line-height: 1; }
+  .order-location > p { font-size: 14px; }
+  .fulfilment-toggle { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .fulfilment-toggle button { min-width: 0; min-height: 48px; padding: 9px 4px; font-size: 11px; line-height: 1.4; }
+  .fulfilment-toggle .ui-arrow { display: none; }
+  .location-choices { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .location-choice { display: grid; grid-template-columns: 30% minmax(0, 1fr); }
+  .location-choice img { width: 100%; height: 100%; min-height: 160px; }
+  .location-choice > div { padding: 18px 14px; }
+  .location-choice h4 { font-size: 28px; }
+  .location-choice p { font-size: 12px; }
+  .location-choice .location-status { font-size: 11px; }
+  .location-choice .choice-footer { font-size: 12px; gap: 10px; }
+  .location-choice .choice-footer .ui-arrow { font-size: 16px; }
+  .demo-notice { font-size: 12px; line-height: 1.7; padding: 14px; }
+  .order-menu-main { padding: 22px 20px 28px; }
+  .selected-location { align-items: flex-start; gap: 9px; font-size: 12px; }
+  .selected-location > span { flex: 1; min-width: 0; }
+  .selected-location strong { font-size: 13px; }
+  .selected-location > svg { margin-top: 3px; }
+  .selected-location button { flex-shrink: 0; font-size: 11px; min-height: 40px; padding: 6px 0 6px 8px; }
+  .mode-switcher button { min-height: 44px; font-size: 13px; }
+  .order-fulfillment-note { font-size: 12px; }
+  .order-menu-toolbar { position: static; padding-bottom: 18px; }
+  .order-search-row { gap: 12px; }
+  .search-input { font-size: 16px; min-height: 46px; }
+  .order-search-row > .veg-toggle { font-size: 12px; }
+  .order-search-row > .veg-toggle input { width: 17px; height: 17px; }
+  .order-food-card img { height: auto; aspect-ratio: 1.2; }
+  .order-food-details { padding: 13px 11px; }
+  .order-food-details h4 { font-size: clamp(23px, 6.3vw, 31px); line-height: 1.1; }
+  .order-food-details p { font-size: 12px; line-height: 1.65; }
+  .order-food-details > div { font-size: 23px; }
+  .order-food-details .add-icon { width: 32px; height: 32px; flex-shrink: 0; }
+  .mobile-cart-bar { padding: 16px 20px calc(16px + env(safe-area-inset-bottom)); gap: 12px; z-index: 4; }
+  .mobile-cart-bar span { font-size: 21px; }
+  .mobile-cart-bar .mobile-total { flex-shrink: 0; white-space: nowrap; }
+
+  .product-hero { height: auto; aspect-ratio: 1.75; }
+  .product-body { padding: 25px 20px 0; }
+  .product-heading { flex-wrap: wrap; gap: 8px 16px; }
+  .product-heading h2 { flex-basis: 100%; font-size: clamp(36px, 10vw, 48px); line-height: 1; }
+  .product-heading > span { font-size: 26px; }
+  .product-description { font-size: 14px; }
+  .allergens { font-size: 12px; line-height: 1.7; padding: 12px; }
+  .product-options legend { font-size: 26px; }
+  .option-row { font-size: 14px; min-height: 48px; padding: 13px 0; gap: 10px; }
+  .option-row input { width: 19px; height: 19px; }
+  .option-row > span:nth-child(2) { min-width: 0; flex: 1; }
+  .option-row > span:last-child { flex-shrink: 0; }
+  .option-row small { font-size: 12px; }
+  .meal-drink { margin-left: 29px; }
+  .meal-drink label { font-size: 12px; }
+  .meal-drink select { min-height: 46px; font-size: 16px; }
+  .product-footer { gap: 12px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+  .product-footer .qty-control { height: 54px; }
+  .product-footer .qty-control button { width: 30px; height: 53px; }
+  .product-footer .qty-control span { width: 24px; }
+  .product-footer .button { min-height: 56px; white-space: normal; flex-direction: column; gap: 4px; font-size: 17px; padding: 10px 8px; }
+  .product-footer .button span { font-size: 19px; line-height: 1.1; }
+  .product-footer .button .ui-arrow { display: none; }
+
+  .cart-view { padding: 28px 20px; }
+  .cart-location-note { gap: 14px; align-items: center; font-size: 13px; }
+  .cart-location-note > span { min-width: 0; flex: 1; }
+  .cart-location-note button { min-height: 40px; flex-shrink: 0; }
+  .cart-line-title { font-size: 14px; }
+  .cart-line-title > span:first-child { min-width: 0; }
+  .cart-line-title > span:last-child { flex-shrink: 0; }
+  .cart-line-details { font-size: 12px; }
+  .cart-line-actions { min-height: 44px; }
+  .remove-line { font-size: 12px; padding: 10px; }
+  .cart-view .button { white-space: normal; gap: 12px; }
+  .cart-totals { font-size: 13px; }
+  .checkout-layout > .cart-panel { padding: 24px 20px; }
+  .checkout-main { padding: 26px 20px calc(36px + env(safe-area-inset-bottom)); }
+  .checkout-main h3 { font-size: clamp(30px, 8.5vw, 42px); line-height: 1; }
+  .checkout-intro { font-size: 14px; }
+  .checkout-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field { min-width: 0; font-size: 13px; }
+  .field input, .field select, .field textarea { min-width: 0; width: 100%; max-width: 100%; font-size: 16px; min-height: 48px; }
+  .field small { font-size: 12px; line-height: 1.6; }
+  .pickup-info, .payment-option { font-size: 13px; }
+  .payment-option > span:first-child { flex-shrink: 0; }
+  .payment-option small { font-size: 12px; line-height: 1.6; }
+  .consent-label { font-size: 13px; line-height: 1.7; gap: 12px; }
+  .consent-label input { width: 19px; height: 19px; }
+  .checkout-submit { white-space: normal; flex-direction: column; align-items: center; min-height: 74px; padding: 15px 12px; font-size: 20px; line-height: 1.2; gap: 7px; }
+  .checkout-submit span { font-family: var(--display); font-size: 22px; font-weight: 700; white-space: nowrap; }
+  .checkout-submit .ui-arrow { display: none; }
+  .checkout-privacy, .checkout-privacy button { font-size: 12px; }
+  .demo-checkout-helper { padding: 15px; }
+  .demo-checkout-helper p { font-size: 12px; }
+  .demo-checkout-helper button { min-height: 40px; font-size: 18px; white-space: normal; text-align: left; }
+  .confirmation { padding: 30px 20px 40px; }
+  .confirmation h3, .order-tracking h3 { font-size: clamp(36px, 10vw, 58px); line-height: 1; }
+  .confirmation > p, .tracking-description { font-size: 14px !important; line-height: 1.8; }
+  .confirmation-receipt > div { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); gap: 14px; font-size: 12px; margin-bottom: 15px; }
+  .confirmation-receipt strong { min-width: 0; overflow-wrap: anywhere; }
+  .receipt-details { font-size: 11px; line-height: 1.7; }
+  .tracking-progress { gap: 3px; }
+  .tracking-progress li { min-width: 0; }
+  .tracking-progress li small { font-size: 9px; line-height: 1.6; }
+  .tracking-demo-label { font-size: 8px; letter-spacing: .6px; }
+  .tracking-demo-next p { font-size: 13px; }
+  .tracking-demo-next .button, .confirmation .button { width: 100%; white-space: normal; font-size: 18px; gap: 10px; }
+  .info-dialog { padding: 60px 22px 30px; }
+  .info-dialog h2 { font-size: clamp(36px, 10vw, 48px); line-height: 1; }
+  .info-dialog p { font-size: 14px; }
+  .delivery-option { flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px; }
+  .delivery-option .button { width: 100%; white-space: normal; }
+  .delivery-unavailable { font-size: 12px; white-space: normal; }
+  .info-takeaway .button { width: 100%; white-space: normal; }
+
+  .demo-product-row, .demo-operations-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .demo-product-row > label, .demo-operations-form > label { min-width: 0; }
+  .demo-price-field input { flex: 1; min-width: 0; width: 0; }
+  .demo-product-row select, .demo-operations-form select { min-width: 0; max-width: 100%; font-size: 16px; }
+  .demo-heading-actions { flex-wrap: wrap; }
+  .demo-heading-actions > label { min-width: 120px; }
+  .demo-tabs { gap: 18px; }
+  .demo-tabs > button { min-height: 44px; }
+  .demo-order-detail h2 { font-size: clamp(27px, 8vw, 38px); overflow-wrap: anywhere; }
+}
+
+@media (max-width: 480px) {
+  .checkout-fields { grid-template-columns: minmax(0, 1fr); }
+  .field.full { grid-column: 1; }
+}
+
+@media (max-width: 350px) {
+  .hero { padding-inline: 22px; gap: 22px 12px; }
+  .hero-eyebrow { font-size: 8px; letter-spacing: 1px; }
+  .hero-bottom { font-size: 8px; letter-spacing: .4px; }
+  .hero-bottom-rule { display: none; }
+  .bottom-dock { left: 12px; right: 12px; }
+  .bottom-dock > a, .bottom-dock > button { font-size: 16px; }
+  .bottom-dock .dock-cart { font-size: 15px; }
+  .order-progress { padding-inline: 16px; }
+  .order-step { font-size: 10px; gap: 5px; }
+}

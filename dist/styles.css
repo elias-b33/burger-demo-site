@@ -24,3 +24,16 @@ dialog{border:1px solid var(--green);background:var(--cream);color:var(--green);
   .food-image-button:not(:disabled):hover .food-plus,
   .food-card:has(.food-card-link:not(:disabled):hover) .food-plus{background:var(--lime);color:var(--green-deep);border-color:var(--green)}
 }
+
+/* Drawn interface icons keep the same appearance across phone platforms. */
+.ui-arrow,.ui-check{display:inline-block;width:20px;height:20px;min-width:0;flex-shrink:0;vertical-align:middle;background:currentColor;mask:url("assets/arrow-up-right.svg") center/contain no-repeat;-webkit-mask:url("assets/arrow-up-right.svg") center/contain no-repeat}
+.ui-arrow-down{transform:rotate(135deg)}
+.hero-explore .ui-arrow-down{animation:none}
+.ui-arrow-left{transform:rotate(225deg)}
+.ui-arrow-right{transform:rotate(45deg)}
+.ui-check{width:15px;height:15px;mask-image:url("assets/check.svg");-webkit-mask-image:url("assets/check.svg")}
+.success-icon .ui-check{width:34px;height:34px}
+.announcement b{display:inline-block;width:4px;height:4px;border-radius:50%;background:currentColor;vertical-align:middle}
+.hero-bottom-rule{display:inline-block;width:18px;height:1px;flex-shrink:0;background:var(--red)}
+.big-ticker b{display:block;width:40px;height:2px;background:var(--lime);transform:rotate(-55deg);flex-shrink:0}
+.round-stamp b{display:block;width:22px;height:1px;margin:7px 0;background:currentColor}
